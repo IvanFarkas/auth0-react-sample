@@ -46,6 +46,10 @@ export const ExternalApiComponent = () => {
   const callApi = async () => {
     try {
       const token = await getAccessTokenSilently();
+
+      // JWT Token viewer - https://jwt.io
+      console.log('accessToken:', token)
+
       const response = await fetch(`${apiOrigin}/api/external`, {
         headers: {
           Authorization: `Bearer ${token}`,
