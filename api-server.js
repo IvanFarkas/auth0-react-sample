@@ -15,7 +15,7 @@ authConfig.audience = process.env.REACT_APP_API_IDENTIFIER;
 authConfig.appOrigin = process.env.REACT_APP_APP_BASE_URL;
 authConfig.apiOrigin = process.env.REACT_APP_API_BASE_URL;
 
-console.log('authConfig', authConfig);
+console.log('authConfig:', authConfig);
 
 const port = process.env.API_PORT || 3001;
 const appPort = process.env.SERVER_PORT || 3000;
@@ -30,19 +30,20 @@ app.use(morgan("dev"));
 app.use(helmet());
 app.use(cors({ origin: appOrigin }));
 
+const secret = jwksRsa.expressJwtSecret({
+  cache: true,
+  rateLimit: true,
+  jwksRequestsPerMinute: 5,
+  jwksUri: `https://${authConfig.domain}/.well-known/jwks.json`,
+})
 const checkJwt = jwt({
-  secret: jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `https://${authConfig.domain}/.well-known/jwks.json`,
-  }),
-
+  secret: secret,
   audience: authConfig.audience,
   issuer: `https://${authConfig.domain}/`,
   algorithms: ["RS256"],
 });
 
+console.log('checkJwt:', checkJwt);
 app.get("/api/external", checkJwt, (req, res) => {
   res.send({
     msg: "Your access token was successfully validated!",

@@ -13,8 +13,7 @@ const onRedirectCallback = (appState) => {
   );
 };
 
-// Please see https://auth0.github.io/auth0-react/interfaces/auth0_provider.auth0provideroptions.html
-// for a full list of the available properties on the provider
+// Please see https://auth0.github.io/auth0-react/interfaces/auth0_provider.auth0provideroptions.html for a full list of the available properties on the provider
 const config = getConfig();
 const providerConfig = {
   domain: config.domain,
@@ -24,8 +23,8 @@ const providerConfig = {
   onRedirectCallback,
 };
 
-console.log('config', config);
-console.log('providerConfig', providerConfig);
+console.log('config:', config);
+console.log('providerConfig:', providerConfig);
 
 ReactDOM.render(
   <Auth0Provider {...providerConfig}>

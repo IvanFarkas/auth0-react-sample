@@ -7,16 +7,8 @@ import Loading from "../components/Loading";
 
 export const ExternalApiComponent = () => {
   const { apiOrigin = "http://localhost:3001", audience } = getConfig();
-
-  const [state, setState] = useState({
-    showResult: false,
-    apiMessage: "",
-    error: null,
-  });
-
-  const { getAccessTokenSilently, loginWithPopup, getAccessTokenWithPopup } =
-    useAuth0();
-
+  const [state, setState] = useState({ showResult: false, apiMessage: "", error: null, });
+  const { getAccessTokenSilently, loginWithPopup, getAccessTokenWithPopup } = useAuth0();
   const handleConsent = async () => {
     try {
       await getAccessTokenWithPopup();
@@ -54,13 +46,11 @@ export const ExternalApiComponent = () => {
   const callApi = async () => {
     try {
       const token = await getAccessTokenSilently();
-
       const response = await fetch(`${apiOrigin}/api/external`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
       const responseData = await response.json();
 
       setState({
