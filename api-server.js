@@ -15,6 +15,8 @@ authConfig.audience = process.env.REACT_APP_API_IDENTIFIER;
 authConfig.appOrigin = process.env.REACT_APP_APP_BASE_URL;
 authConfig.apiOrigin = process.env.REACT_APP_API_BASE_URL;
 
+console.log('authConfig', authConfig);
+
 const port = process.env.API_PORT || 3001;
 const appPort = process.env.SERVER_PORT || 3000;
 const appOrigin = authConfig.appOrigin || `http://localhost:${appPort}`;
